@@ -1,10 +1,17 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
+import {styles} from './src/themes/appTheme';
+import {CalculatorScreen} from './src/screens/CalculatorScreen';
+import {Provider} from 'react-redux';
+import {store} from './src/app/store';
 
 export const App = () => {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar>App</StatusBar>
+        <CalculatorScreen />
+      </SafeAreaView>
+    </Provider>
   );
 };

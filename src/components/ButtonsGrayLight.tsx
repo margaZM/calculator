@@ -1,11 +1,20 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {ButtonCalculator} from './ButtonCalculator';
+import {useAppDispatch} from '../app/hooks';
+import {
+  displayValues,
+  resetResult,
+} from '../slices/calculator/calculatorSlices';
 
 export const ButtonsGrayLight = () => {
-  // dispatch(displayValues({type: 'operator', item}));
-  // dispatch(calculateOperation());
+  const dispatch = useAppDispatch();
 
+  const handleClick = (item: string) => {
+    item === 'AC'
+      ? dispatch(resetResult())
+      : dispatch(displayValues({type: 'operator', item}));
+  };
   const buttonList = ['AC', '+/-', '%'];
 
   return (
@@ -16,7 +25,7 @@ export const ButtonsGrayLight = () => {
           textColor="#000"
           textValue={item}
           background="#9b9b9b"
-          onPress={() => console.log('hola')}
+          onPress={() => handleClick(item)}
           size={70}
         />
       ))}
@@ -26,7 +35,6 @@ export const ButtonsGrayLight = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'row',
   },
 });

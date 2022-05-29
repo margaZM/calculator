@@ -1,14 +1,25 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import {ButtonCalculator} from './ButtonCalculator';
+import {useAppDispatch} from '../app/hooks';
+import {
+  displayValues,
+  calculateOperation,
+} from '../slices/calculator/calculatorSlices';
 
 export const ButtonsVertical = () => {
+  const dispatch = useAppDispatch();
+
   const handleClick = (item: string) => {
-    console.log(item);
+    if (item !== '=') {
+      dispatch(displayValues({type: 'operator', item}));
+    } else {
+      dispatch(calculateOperation());
+    }
   };
   const buttonList = ['÷', 'x', '-', '+', '='];
   return (
-    <View style={styles.container}>
+    <View>
       {buttonList.map(item => (
         <ButtonCalculator
           key={item}
@@ -22,9 +33,3 @@ export const ButtonsVertical = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    // alignSelf: 'flex-end',
-  },
-});
